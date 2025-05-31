@@ -57,7 +57,7 @@ body {
 /* Matrix Theme */
 .theme-matrix {
     --bg-color: #000;
-    --text-color: #000000;
+    --text-color: #00ff00;
     --accent-color: #008000;
     --shadow-color: rgba(0, 255, 0, 0.7);
     --border-color: #00ff00;
