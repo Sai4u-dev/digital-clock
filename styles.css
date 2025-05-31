@@ -1,0 +1,329 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', monospace;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.5s ease;
+    overflow: hidden;
+}
+
+/* Theme Variables */
+:root {
+    --bg-color: #000;
+    --text-color: #ffffff;
+    --accent-color: #ff0080;
+    --shadow-color: rgba(0, 255, 0, 0.5);
+    --border-color: #00ff00;
+}
+
+/* Neon Theme */
+.theme-neon {
+    --bg-color: #0a0a0a;
+    --text-color: #00ffff;
+    --accent-color: #ff0080;
+    --shadow-color: rgba(0, 255, 255, 0.8);
+    --border-color: #00ffff;
+    background: radial-gradient(circle at center, #1a0033 0%, #000 70%);
+}
+
+/* Retro Theme */
+.theme-retro {
+    --bg-color: #2d1b00;
+    --text-color: #ffaa00;
+    --accent-color: #ff6600;
+    --shadow-color: rgba(255, 170, 0, 0.6);
+    --border-color: #ffaa00;
+    background: linear-gradient(45deg, #2d1b00 0%, #1a0f00 50%, #2d1b00 100%);
+}
+
+/* Minimalist Theme */
+.theme-minimal {
+    --bg-color: #f8f9fa;
+    --text-color: #2c3e50;
+    --accent-color: #3498db;
+    --shadow-color: rgba(52, 152, 219, 0.3);
+    --border-color: #ecf0f1;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+/* Matrix Theme */
+.theme-matrix {
+    --bg-color: #000;
+    --text-color: #000000;
+    --accent-color: #008000;
+    --shadow-color: rgba(0, 255, 0, 0.7);
+    --border-color: #00ff00;
+    background: #000;
+}
+
+/* Rainbow Theme */
+.theme-rainbow {
+    --bg-color: #1a1a2e;
+    --text-color: #fff;
+    --accent-color: #ff6b6b;
+    --shadow-color: rgba(255, 255, 255, 0.5);
+    --border-color: #fff;
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7, #dda0dd);
+    background-size: 400% 400%;
+    animation: rainbowBg 8s ease infinite;
+}
+
+@keyframes rainbowBg {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Clock Container */
+.clock-container {
+    text-align: center;
+    padding: 2rem;
+    border: 3px solid var(--border-color);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    box-shadow:
+        0 0 30px var(--shadow-color),
+        inset 0 0 30px rgba(255, 255, 255, 0.1);
+    transition: all 0.5s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.clock-container::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, var(--accent-color), var(--text-color), var(--accent-color));
+    border-radius: 22px;
+    z-index: -1;
+    opacity: 0.3;
+    animation: borderGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes borderGlow {
+    0% {
+        opacity: 0.3;
+    }
+
+    100% {
+        opacity: 0.8;
+    }
+}
+
+/* Digital Clock Display */
+.digital-clock {
+    font-size: 4rem;
+    font-weight: bold;
+    color: var(--text-color);
+    text-shadow:
+        0 0 10px var(--shadow-color),
+        0 0 20px var(--shadow-color),
+        0 0 30px var(--shadow-color);
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.date-display {
+    font-size: 1.2rem;
+    color: var(--accent-color);
+    text-shadow: 0 0 10px var(--shadow-color);
+    margin-bottom: 2rem;
+    opacity: 0.8;
+}
+
+/* Theme Selector */
+.theme-selector {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.theme-btn {
+    padding: 0.8rem 1.5rem;
+    border: 2px solid var(--border-color);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-color);
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+.theme-btn:hover {
+    background: var(--accent-color);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px var(--shadow-color);
+}
+
+.theme-btn.active {
+    background: var(--text-color);
+    color: var(--bg-color);
+    box-shadow: 0 0 20px var(--shadow-color);
+}
+
+/* Special Effects for Different Themes */
+.theme-neon .digital-clock {
+    animation: neonFlicker 2s infinite alternate;
+}
+
+@keyframes neonFlicker {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.8;
+    }
+}
+
+.theme-matrix .clock-container {
+    animation: matrixGlitch 5s infinite;
+}
+
+@keyframes matrixGlitch {
+
+    0%,
+    90%,
+    100% {
+        transform: translate(0);
+    }
+
+    92% {
+        transform: translate(2px, 0);
+    }
+
+    94% {
+        transform: translate(-2px, 0);
+    }
+
+    96% {
+        transform: translate(1px, 0);
+    }
+}
+
+.theme-retro .digital-clock {
+    font-family: 'Courier New', monospace;
+    animation: retroGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes retroGlow {
+    0% {
+        text-shadow: 0 0 5px var(--shadow-color);
+    }
+
+    100% {
+        text-shadow: 0 0 20px var(--shadow-color), 0 0 30px var(--shadow-color);
+    }
+}
+
+.theme-minimal .clock-container {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border-color);
+}
+
+.theme-minimal .digital-clock {
+    text-shadow: none;
+    font-family: 'Arial', sans-serif;
+}
+
+.theme-rainbow .digital-clock {
+    background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1, #96ceb4, #ffeaa7);
+    background-size: 400% 400%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: rainbowText 3s ease infinite;
+}
+
+@keyframes rainbowText {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .digital-clock {
+        font-size: 2.5rem;
+    }
+
+    .theme-selector {
+        gap: 0.5rem;
+    }
+
+    .theme-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.8rem;
+    }
+}
+
+/* Matrix Rain Effect */
+.matrix-rain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.matrix-char {
+    position: absolute;
+    color: #00ff00;
+    font-family: 'Courier New', monospace;
+    font-size: 14px;
+    animation: matrixFall linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes matrixFall {
+    0% {
+        transform: translateY(-100vh);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+}
